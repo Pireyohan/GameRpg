@@ -26,29 +26,35 @@ public class ExoRPG {
         scan = new Scanner(System.in);
         createItems();
         generateDungeon();
-        Personnage paul = new Personnage("Paul");
+        // Personnage paul = new Personnage("Paul");
 
-        paul.setPv(100);
-        paul.setForce(10);
+        // paul.setPv(100);
+        // paul.setForce(10);
 
-        System.out.println("Vous incarnez le héro suivant " + paul);
-        System.out.println("Il a " + paul.getForce() + " Force");
+        // System.out.println("Vous incarnez le héro suivant " + paul);
+        // System.out.println("Il a " + paul.getForce() + " Force");
 
-        Arme epee = new Arme("Epee rouillÃ©e", 10, 0.2f);
-        Armure carton = new Armure("Cartons sctochÃ©s", 10);
+        // Arme epee = new Arme("Epee rouillée", 10, 0.2f);
+        // Armure carton = new Armure("Cartons sctochées", 10);
 
-        paul.setArmor(carton);
-        paul.setEquipedWeapon(epee);
+        // paul.setArmor(carton);
+        // paul.setEquipedWeapon(epee);
 
-        paul.ajouterItem(availableItems[0]);
-        paul.ajouterItem(availableItems[0]);
-        paul.ajouterItem(availableItems[0]);
+        // paul.ajouterItem(availableItems[0]);
+        // paul.ajouterItem(availableItems[0]);
+        // paul.ajouterItem(availableItems[0]);
+      
+        // for (Personnage personnage : monsters) {
+        //     System.out.println("Vous combattez " + personnage);
+        //     combattre(paul, personnage);
+        // }
+        // scan.close();
 
-        for (Personnage personnage : monsters) {
-            System.out.println("Vous combattez " + personnage);
-            combattre(paul, personnage);
-        }
-        scan.close();
+              // todo afficher la list Array Arme
+              Arme listArme= new Arme();
+              listArme.afficherArme();
+
+    
     }
 
     public static void combattre(Personnage p1, Personnage p2) {

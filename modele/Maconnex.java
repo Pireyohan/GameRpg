@@ -10,10 +10,10 @@ public class Maconnex {
         // String password = "H3ll0M2I";
         // String database = "bddYohan";
         // int port = 3306;
-        
+
         public Maconnex(){
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://51.68.227.19/bddYohan?" + "user=M2I&password=H3ll0M2I");
+            conn = DriverManager.getConnection("jdbc:mysql://51.68.227.19/rpgBddYo?" + "user=M2I&password=H3ll0M2I");
             System.out.println("Connection successfull");
 
             // do somthing
