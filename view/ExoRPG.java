@@ -2,7 +2,6 @@ package vscode_rpg_correction.view;
 
 import java.sql.Connection;
 import java.util.Scanner;
-
 import vscode_rpg_correction.modele.Arme;
 import vscode_rpg_correction.modele.Armure;
 import vscode_rpg_correction.modele.BasicItem;
@@ -105,7 +104,7 @@ public class ExoRPG {
     }
 
     public static void generateDungeon() {
-        String[] noms = new String[] { "Gobelin", "Orc", "Troll", "Elfe", "FantÃ´me" };
+        String[] noms = new String[] { "Gobelin", "Orc", "Troll", "Elfe", "Fantôme" };
         String[] adj = new String[] { "peureux", "pretentieux", "stupide", "passionne", "pessimiste", "idealiste",
                 "gigantesque", "courageux", "age", "jaune", "violet", "vert", "endurant", "prevoyant", "vigilant",
                 "volontaire", "communiste", "de droite", "en marche", "ecolo" };
@@ -132,7 +131,7 @@ public class ExoRPG {
             availableArmors[i].setDefense((int) (Math.random() * 5 * (i + 1)));
         }
         for (int i = 0; i < availableWeapons.length; i++) {
-            availableWeapons[i] = new Arme("EpÃ©e de " + types[i]);
+            availableWeapons[i] = new Arme("Epée de " + types[i]);
             availableWeapons[i].setDegats((int) (Math.random() * 5 * (i + 1)));
             availableWeapons[i].setCritique((float) Math.random() * 5 * (i + 1) / 100);
         }
