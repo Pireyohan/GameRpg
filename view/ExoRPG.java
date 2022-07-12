@@ -1,14 +1,17 @@
 package vscode_rpg_correction.view;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
+
 import vscode_rpg_correction.modele.Arme;
 import vscode_rpg_correction.modele.Armure;
 import vscode_rpg_correction.modele.BasicItem;
 import vscode_rpg_correction.modele.Consommable;
-import vscode_rpg_correction.modele.Maconnex;
 import vscode_rpg_correction.modele.Personnage;
 import vscode_rpg_correction.modele.PotionSoin;
+import vscode_rpg_correction.utils.DBManager;
 
 public class ExoRPG {
     static BasicItem[] availableItems = new BasicItem[5];
@@ -20,43 +23,61 @@ public class ExoRPG {
     public static Connection conn = null;
 
     public static void main(String[] args) {
+        DBManager.init();
+        // new Maconnex(); // j'appelle mon constructeur de mon fichier Maconnex.java
 
-        new Maconnex(); // j'appelle mon constructeur de mon fichier Maconnex.java
+        Arme arme1 = new Arme(2);
+        System.out.println(arme1.getNom());
 
-        scan = new Scanner(System.in);
-        createItems();
-        generateDungeon();
-        // Personnage paul = new Personnage("Paul");
+        // Arme arme2= new Arme("");
+        // if(true){
+        // arme2.get(2); //arme2 prends les données de la bdd à l'ID 2
+        // }
 
-        // paul.setPv(100);
-        // paul.setForce(10);
+        // Arme recompense=new Arme(""); exemple de recuperation d"une arme recompenseu
+        // une fois le combat finit
+        // if(boolean combat ==false){
+        // recompense.get(2);
+        // }
+        // hero.addInventaire(recompense);
 
-        // System.out.println("Vous incarnez le héro suivant " + paul);
-        // System.out.println("Il a " + paul.getForce() + " Force");
+        // Je viens setter le nom de l'arme dans l'ID 2
+        arme1.setNom("Epée un peu rouillée");
+        arme1.save();
 
-        // Arme epee = new Arme("Epee rouillée", 10, 0.2f);
-        // Armure carton = new Armure("Cartons sctochées", 10);
+        try {
+            String sql = "INSERT INTO armes (nom_Arme, degats, critique, poids) VALUES(?,?,?,?)";
+            PreparedStatement pstmt = DBManager.conn.prepareStatement(sql);
+            pstmt.setString(1, "Epée neuve");
+            pstmt.setInt(2, 30);
+            pstmt.setFloat(3, 0.45f);
+            pstmt.setInt(4, 5);
+            pstmt.execute();
 
-        // paul.setArmor(carton);
-        // paul.setEquipedWeapon(epee);
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendoError: " + ex.getErrorCode());
 
-        // paul.ajouterItem(availableItems[0]);
-        // paul.ajouterItem(availableItems[0]);
-        // paul.ajouterItem(availableItems[0]);
-      
+        }
+
+        // scan = new Scanner(System.in);
+        // createItems();
+        // generateDungeon();
+
         // for (Personnage personnage : monsters) {
-        //     System.out.println("Vous combattez " + personnage);
-        //     combattre(paul, personnage);
+        // System.out.println("Vous combattez " + personnage);
+        // combattre(paul, personnage);
         // }
         // scan.close();
 
-              // todo afficher la list Array Arme
-              Arme listArme= new Arme();
-              listArme.afficherArme();
+        // todo afficher la list Array Arme
+        // Arme listArme= new Arme();
+        // listArme.afficherArme();
 
-    
     }
 
+    // #region ancienne fonctions
     public static void combattre(Personnage p1, Personnage p2) {
         int i = 0;
         while (p1.getPv() > 0 && p2.getPv() > 0) {
@@ -142,4 +163,5 @@ public class ExoRPG {
             availableWeapons[i].setCritique((float) Math.random() * 5 * (i + 1) / 100);
         }
     }
+    // #endregion
 }
