@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 public class Personnage {
-    protected static Arme poings = new Arme("Poings", 1 , 0.01f);
+    protected static Arme poings = new Arme("Poings", 1 , 0.01f,1);
     protected static Armure aucune = new Armure("Aucune", 0);    
     protected String nom;
     public int pv = 50;
