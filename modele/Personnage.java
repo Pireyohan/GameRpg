@@ -150,7 +150,7 @@ public class Personnage extends Model {
 
     @Override
     public boolean save() {
-        // TODO Auto-generated method stub
+        
         return false;
     }
 

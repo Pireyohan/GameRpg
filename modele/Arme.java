@@ -1,10 +1,8 @@
 package vscode_rpg_correction.modele;
 
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 
 import vscode_rpg_correction.utils.DBManager;
 
@@ -27,6 +25,13 @@ public class Arme extends BasicItem implements Equipable {
 
     }
 
+    public Arme(String name, int degats, float critique, int poids) {
+        super(name);
+        this.degats = degats;
+        this.critique = critique;
+        this.poids = poids;
+    }
+
     public Arme(int id) {
         super("");
         try {
@@ -46,13 +51,6 @@ public class Arme extends BasicItem implements Equipable {
             System.out.println("VendoError: " + ((SQLException) ex).getErrorCode());
         }
 
-    }
-
-    public Arme(String name, int degats, float critique, int poids) {
-        super(name);
-        this.degats = degats;
-        this.critique = critique;
-        this.poids = poids;
     }
 
     public boolean get(int id) {
@@ -82,10 +80,10 @@ public class Arme extends BasicItem implements Equipable {
         String sql;
         if (this.id != 0)
             sql = "UPDATE armes " +
-                    "SET nom_Arme = ?, degats = ?, critique = ?, poids = ?, icone = ?" +
+                    "SET name_Arme = ?, degats = ?, critique = ?, poids = ?, icone = ?" +
                     "WHERE id_Arme = ?";
         else
-            sql = "INSERT INTO armes (nom_Arme, degats, critique, poids, icone)" +
+            sql = "INSERT INTO armes (name_Arme, degats, critique, poids, icone)" +
                     "VALUES(?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = DBManager.conn.prepareStatement(sql);

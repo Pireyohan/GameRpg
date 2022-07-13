@@ -20,4 +20,16 @@ public class PotionSoin extends BasicItem implements Consommable {
         this.pvRendu = pvRendu;
     }
     //#endregion
+
+    @Override
+    public boolean get(int id) {
+        
+        return false;
+    }
+
+    @Override
+    public boolean save() {
+        
+        return false;
+    }
 }

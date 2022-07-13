@@ -46,7 +46,7 @@ public class ExoRPG {
         arme1.save();
 
         try {
-            String sql = "INSERT INTO armes (nom_Arme, degats, critique, poids) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO armes (name_Arme, degats, critique, poids) VALUES(?,?,?,?)";
             PreparedStatement pstmt = DBManager.conn.prepareStatement(sql);
             pstmt.setString(1, "Epée neuve");
             pstmt.setInt(2, 30);
@@ -100,7 +100,6 @@ public class ExoRPG {
                             }
                             j++;
                         }
-                        // TODO gÃ©rer Ã§a mieux
                         if (nbPotions == 0)
                             p1.attaquer(p2);
                         else {

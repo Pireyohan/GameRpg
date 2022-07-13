@@ -1,16 +1,41 @@
 package vscode_rpg_correction.modele;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import vscode_rpg_correction.utils.DBManager;
+
 public class Armure extends BasicItem implements Equipable {
     // protected String name="";
     protected int defense = 1;
+
+    public Armure(String name) {
+        super(name);
+    }
 
     public Armure(String name, int defense) {
         super(name);
         this.defense = defense;
 
     }
-    public Armure(String name){
-        super(name);
+
+    public Armure(int id) {
+        super("");
+        try {
+            ResultSet resultat = DBManager.execute("SELECT * FROM armures WHERE id_Armure = " + id);
+            if (resultat.next()) {
+                this.nom = (resultat.getString("name"));
+                this.defense = resultat.getInt("defense");
+                this.icon = resultat.getString("icone");
+                this.id = id;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ((SQLException) ex).getSQLState());
+            System.out.println("VendoError: " + ((SQLException) ex).getErrorCode());
+        }
+
     }
 
     // #region/*GETTERS ------------SETTERS */
@@ -41,6 +66,18 @@ public class Armure extends BasicItem implements Equipable {
             target.ajouterItem(this);
         target.setArmor(null);
 
+        return false;
+    }
+
+    @Override
+    public boolean get(int id) {
+       
+        return false;
+    }
+
+    @Override
+    public boolean save() {
+        
         return false;
     }
 

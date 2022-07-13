@@ -1,6 +1,8 @@
 package vscode_rpg_correction.modele;
 
-public abstract class BasicItem {
+import vscode_rpg_correction.utils.Model;
+
+public abstract class BasicItem extends Model {
 
     protected int poids = 0;
     protected String icon = "";
