@@ -3,6 +3,7 @@ package vscode_rpg_correction.modele;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import vscode_rpg_correction.utils.DBManager;
 
@@ -13,7 +14,7 @@ public class Arme extends BasicItem implements Equipable {
     // protected String nom="";
     protected int degats = 0;
     protected float critique = 0.0f;
-    int id = 0;
+    
 
     public Arme() {
         super("pepette");
@@ -75,6 +76,26 @@ public class Arme extends BasicItem implements Equipable {
         return false;
 
     }
+    public boolean get(){
+        try{
+            ResultSet resultat = DBManager.execute("SELECT * FROM armes WHERE id_Arme = " + this.id);
+            if (resultat.next()) {
+                this.nom = (resultat.getString("name_Arme"));
+                this.degats = resultat.getInt("degats");
+                this.critique = resultat.getFloat("critique");
+                this.poids = resultat.getInt("poids");
+                this.icon = resultat.getString("icone");
+                return true;
+            }
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return false;
+    }
 
     public boolean save() {
         String sql;
@@ -86,7 +107,7 @@ public class Arme extends BasicItem implements Equipable {
             sql = "INSERT INTO armes (name_Arme, degats, critique, poids, icone)" +
                     "VALUES(?, ?, ?, ?, ?)";
         try {
-            PreparedStatement stmt = DBManager.conn.prepareStatement(sql);
+            PreparedStatement stmt = DBManager.conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, this.nom);
             stmt.setInt(2, this.degats);
             stmt.setFloat(3, this.critique);
@@ -95,7 +116,17 @@ public class Arme extends BasicItem implements Equipable {
             if (id != 0)
                 stmt.setInt(6, this.id);
 
-            return stmt.execute();
+                stmt.executeUpdate();
+
+                ResultSet keys = stmt.getGeneratedKeys();
+                if(this.id == 0 && keys.next()){
+                    this.id = keys.getInt(1);
+                    return true;
+                }
+                else if(this.id != 0)
+                    return true;
+                else
+                    return false;
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
@@ -178,6 +209,8 @@ public class Arme extends BasicItem implements Equipable {
     // int crit = resultat2.getInt("critique");
     // System.out.println(titre + " - " + degat + " - " + crit);
     // }
+
+ 
 
     // } catch (SQLException ex) {
     // System.out.println("SQLException: " + ex.getMessage());

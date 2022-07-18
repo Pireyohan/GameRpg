@@ -7,6 +7,8 @@ public abstract class BasicItem extends Model {
     protected int poids = 0;
     protected String icon = "";
     protected String nom = "";
+    protected int id;
+
 
     public BasicItem(String nom) {
         this.nom = nom;
@@ -35,6 +37,13 @@ public abstract class BasicItem extends Model {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     // #endregion

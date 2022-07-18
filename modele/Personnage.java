@@ -16,6 +16,7 @@ public class Personnage extends Model {
     protected int force = 1;
     protected boolean type;
     protected int pvMax=50;
+    protected boolean alive= false;
 
     // faire une arraylist
     protected ArrayList<BasicItem> inventaire = new ArrayList<BasicItem>();
@@ -30,6 +31,11 @@ public class Personnage extends Model {
         this.nom = nom;
         this.pv = pv;
         this.force = force;
+        this.alive= pv > 0 ? true : false;
+    }
+
+    public boolean IsAlive(){
+        return alive;
     }
 
     // #region get set

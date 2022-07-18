@@ -1,4 +1,5 @@
 package vscode_rpg_correction.utils;
+
 import java.sql.*;
 
 public class DBManager {
@@ -8,13 +9,11 @@ public class DBManager {
     private static String server = "51.68.227.19";
     private static String database = "rpgBddYo";
 
-    public static void init(){
+    public static void init() {
         try {
-            DBManager.conn =
-            DriverManager.getConnection("jdbc:mysql://"+DBManager.server+"/"
-                                            +DBManager.database, user, password);
-        }
-        catch (SQLException ex) {
+            DBManager.conn = DriverManager.getConnection("jdbc:mysql://" + DBManager.server + "/"
+                    + DBManager.database, user, password);
+        } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -22,11 +21,10 @@ public class DBManager {
         }
     }
 
-    public static void close(){
-        try{
+    public static void close() {
+        try {
             DBManager.conn.close();
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -34,27 +32,12 @@ public class DBManager {
         }
     }
 
-    public static ResultSet execute(String sql){
+    public static ResultSet execute(String sql) {
         ResultSet test = null;
         try {
             Statement stmt = DBManager.conn.createStatement();
             test = stmt.executeQuery(sql);
-        }
-        catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-        return test;
-    }
-    public static int executeUpdate(String sql){
-        int test = -1;
-        try {
-            Statement stmt = DBManager.conn.createStatement();
-            test = stmt.executeUpdate(sql);
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -63,4 +46,51 @@ public class DBManager {
         return test;
     }
 
+    public static int executeUpdate(String sql) {
+        int test = -1;
+        try {
+            Statement stmt = DBManager.conn.createStatement();
+            test = stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return test;
+    }
+
+    public static void setAutoCommit(boolean autocommit) {
+        try {
+            conn.setAutoCommit(autocommit);
+        } catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+    }
+
+    public static Savepoint setSavePoint() {
+        try {
+            return conn.setSavepoint();
+        } catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return null;
+        }
+    }
+
+    public static void rollback(Savepoint save) {
+        try {
+            conn.rollback(save);
+        } catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+    }
 }
